@@ -20,7 +20,7 @@ const Navbar = () => {
                     setUserLocation({ lat: latitude, long: longitude });
                     try {
                         const response = await axios.get(
-                            `http://localhost:3000/api/location/reverse-geocode?lat=${latitude}&lon=${longitude}`
+                            `https://placefinder-backend-1.onrender.com/api/location/reverse-geocode?lat=${latitude}&lon=${longitude}`
                         );
                         const data = response.data;
                         setLocation(data?.display_name || '');

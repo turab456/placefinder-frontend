@@ -12,7 +12,7 @@
     // const moods = ['All', 'Calm', 'Productive', 'Party', 'Chill', 'Insta-worthy'];
     const fetchMoods = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/moods');
+        const response = await axios.get('https://placefinder-backend-1.onrender.com/api/moods');
         const data = response.data;
         setMood(data);
       } catch (error) {
