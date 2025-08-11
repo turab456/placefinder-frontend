@@ -65,7 +65,7 @@ export default function BangalorePlaceForm() {
       setLoadingSuggestions(true);
       debounceTimer.current = setTimeout(async () => {
         try {
-          const res = await axios.get(`http://localhost:3000/api/location/forward-geocode`, {
+          const res = await axios.get(`https://placefinder-backend-1.onrender.com/api/location/forward-geocode`, {
             params: {
               address: `${value}`,
              
