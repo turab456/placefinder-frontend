@@ -53,17 +53,17 @@ const Navbar = () => {
             setLoadingSuggestions(true);
             debounceTimer.current = setTimeout(async () => {
                 try {
-                    const res = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+                    const res = await axios.get(`https://placefinder-backend-1.onrender.com/api/location/forward-geocode`, {
                         params: {
-                            q: `${value}, Bangalore`, // restrict to Bangalore
-                            format: 'json',
-                            addressdetails: 1,
-                            limit: 5,
-                            countrycodes: 'in', // restrict to India
+                            address: `${value}`, // restrict to Bangalore
+                            // format: 'json',
+                            // addressdetails: 1,
+                            // limit: 5,
+                            // countrycodes: 'in', // restrict to India
                         },
-                        headers: {
-                            'User-Agent': 'YourAppName/1.0 (youremail@example.com)', // Customize this
-                        },
+                        // headers: {
+                        //     'User-Agent': 'YourAppName/1.0 (youremail@example.com)', // Customize this
+                        // },
                     });
                     setLocationSuggestions(res.data);
                 } catch (error) {

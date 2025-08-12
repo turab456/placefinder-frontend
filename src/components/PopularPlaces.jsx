@@ -18,12 +18,14 @@ const PopularPlaces = () => {
             >
               <img
                 src={place.imageUrl}
-                alt={place.name}
+                alt={place.moodTags.name}
                 className="w-full h-40 object-cover"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-indigo-900">{place.name}</h3>
-                <p className="text-sm text-gray-500">{place.category}</p>
+                <p className="text-sm text-gray-500">
+                  {place.category.name.charAt(0).toUpperCase() + place.category.name.slice(1)}
+                </p>
                 {/* <p className="text-sm text-gray-500">{place.address}</p> */}
                 <div className="flex items-center mt-2">
                   <svg

@@ -33,7 +33,7 @@
     // Filter places based on selected mood
     const filteredPlaces = selectedMood === 'Luxury'
       ? places
-      : places.filter((place) => place?.moodTags === selectedMood);
+      : places.filter((place) => place?.moodTags?.name === selectedMood);
     useEffect(() => {
 
       fetchMoods();
@@ -69,13 +69,15 @@
                   className="min-w-[280px] max-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
                 >
                   <img
-                    src={place.image}
+                    src={place.imageUrl}
                     alt={place.name}
                     className="w-full h-40 object-cover"
                   />
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-indigo-900">{place.name}</h3>
-                    <p className="text-sm text-gray-500">{place.category}</p>
+                    <p className="text-sm text-gray-500">
+  {place.category.name.charAt(0).toUpperCase() + place.category.name.slice(1)}
+                      </p>
                     <div className="flex items-center mt-2">
                       <svg
                         className="w-5 h-5 text-yellow-400"

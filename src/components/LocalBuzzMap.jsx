@@ -17,14 +17,14 @@ L.Icon.Default.mergeOptions({
 const LocalBuzzMap = () => {
   const { places } = useContext(PlacesContext);
   const [userLocation, setLocation] = useState({ lat: 12.9716, long: 77.5946 }); // Default to Bangalore
-  const [selectedCategory, setSelectedCategory] = useState('Mall');
+  const [selectedCategory, setSelectedCategory] = useState('mall');
 
-  const categories = places.map(place => { return place.category });
+  const categories = places.map(place => { return place.category.name });
   const uniqueCategories = [...new Set(categories)].sort();
 
-  const filteredPlaces = selectedCategory === 'Mall'
+  const filteredPlaces = selectedCategory === 'mall'
     ? places
-    : places.filter((place) => place.category === selectedCategory);
+    : places.filter((place) => place.category.name === selectedCategory);
 
   return (
     <section className="py-8 bg-indigo-50">
@@ -42,7 +42,7 @@ const LocalBuzzMap = () => {
                 : 'bg-indigo-100 text-indigo-900 hover:bg-indigo-200'
                 }`}
             >
-              {category}
+              {category.charAt(0).toUpperCase()+category.slice(1)}
             </button>
           ))}
         </div>
@@ -63,7 +63,7 @@ const LocalBuzzMap = () => {
               <Popup>
                 <div className="p-2">
                   <h3 className="text-lg font-semibold text-indigo-900">{place.name}</h3>
-                  <p className="text-sm text-gray-600">{place.category} • {place.moodTags}</p>
+                  <p className="text-sm text-gray-600">{place.category.name.charAt(0).toUpperCase()+place.category.name.slice(1)} • {place.moodTags.name.charAt(0).toUpperCase()+place.moodTags.name.slice(1)}</p>
                   <div className="flex items-center mt-1">
                     <svg
                       className="w-5 h-5 text-yellow-400"

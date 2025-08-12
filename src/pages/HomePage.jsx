@@ -23,7 +23,7 @@ const HomePage = () => {
             <LocalBuzzMap/>
             <TopReviewsCarousel/>
             <HiddenGems/>
-            <LocalTopPicks/>
+            {/* <LocalTopPicks/> */}
             <SmartPlan/>
             {/* <TrendingReels/> */}
             <Footer/>

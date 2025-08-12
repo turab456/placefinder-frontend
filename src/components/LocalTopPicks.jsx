@@ -57,7 +57,7 @@ const LocalTopPicks = () => {
   // Filter picks based on selected category
   const filteredPicks = selectedCategory === 'All'
     ? localPicks
-    : localPicks.filter((pick) => pick.tags.includes(`#${selectedCategory}`));
+    : localPicks.filter((pick) => pick.category.name.includes(`#${selectedCategory}`));
 
   return (
     <section className="py-8 bg-gradient-to-b from-peach-50 to-sky-50">
@@ -69,7 +69,7 @@ const LocalTopPicks = () => {
         <div className="flex flex-wrap gap-2 mb-6">
           {categories.map((category) => (
             <button
-              key={category}
+              key={category.id}
               onClick={() => setSelectedCategory(category)}
               className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition duration-300 ${
                 selectedCategory === category
@@ -77,7 +77,7 @@ const LocalTopPicks = () => {
                   : 'bg-indigo-100 text-indigo-900 hover:bg-indigo-200'
               }`}
             >
-              {category}
+              {category.category.name}
             </button>
           ))}
         </div>

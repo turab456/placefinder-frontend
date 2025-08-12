@@ -68,9 +68,9 @@ export default function BangalorePlaceForm() {
           const res = await axios.get(`https://placefinder-backend-1.onrender.com/api/location/forward-geocode`, {
             params: {
               address: `${value}`,
-             
+
             },
-           
+
           });
           setLocationSuggestions(res.data);
         } catch (error) {
@@ -96,7 +96,46 @@ export default function BangalorePlaceForm() {
     setShowSuggestions(false);
     setLocationSuggestions([]);
   };
+  const fetchCurrentLocation = async () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
 
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        setFormData((prev) => ({
+          ...prev,
+          lat: latitude.toFixed(6), // limit decimals for readability
+          long: longitude.toFixed(6),
+        }));
+        setSuccess("Current location fetched successfully!");
+        // Optionally, you could reverse geocode the coordinates to fill the address too,
+        // but you currently don't have that logic here.
+        try {
+          const data = await axios.get("https://placefinder-backend-1.onrender.com/api/location/reverse-geocode", {
+            params: {
+              lat: latitude,
+              lon: longitude
+            }
+          })
+          setFormData((prev) => ({
+            ...prev,
+            address: data.data.display_name
+          }))
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      (error) => {
+        alert("Unable to fetch location. Please allow location access.");
+        console.error(error);
+      }
+    );
+
+
+  };
   // Add new place on submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -173,9 +212,11 @@ export default function BangalorePlaceForm() {
 
         {/* Address */}
         <div className="mb-4 relative">
+
           <label htmlFor="address" className="block text-gray-700 font-semibold mb-2">
             Address
           </label>
+
           <input
             name="address"
             type="text"
@@ -184,6 +225,14 @@ export default function BangalorePlaceForm() {
             onChange={handleLocationChange}
             className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
           />
+          <button
+            type="button"
+            onClick={fetchCurrentLocation}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 rounded"
+            title="Fetch Current Location"
+          >
+            Use Current Location
+          </button>
           {showSuggestions && (
             <ul className="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 max-h-60 overflow-y-auto">
               {loadingSuggestions && (
@@ -205,6 +254,7 @@ export default function BangalorePlaceForm() {
               )}
             </ul>
           )}
+
         </div>
 
         {/* City & State */}
