@@ -30,7 +30,7 @@ export const PlacesProvider = ({ children }) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/api/places")
+            .get("https://placefinder-backend-1.onrender.com/api/places")
             .then((res) => {
                 setPlaces(res.data);
             })
